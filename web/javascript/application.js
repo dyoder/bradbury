@@ -1,31 +1,34 @@
 (function() {
-  var Bradbury;
+  var Bradbury, Content;
 
-  Bradbury = {
-    Models: {},
-    Controllers: {},
-    Views: {}
-  };
-
-  Bradbury.Models.Document = Backbone.Model.extend({
-    url: function() {}
+  Content = Backbone.Model.extend({
+    url: function() {
+      return "/content/" + this.id + ".json";
+    }
   });
 
-  console.log(Backbone);
-
-  Bradbury.Controllers.Documents = Backbone.Router.extend({
+  Bradbury = Backbone.Router.extend({
     routes: {
       "documents/:name": "show"
     },
     show: function(name) {
-      return $("#name").text(name);
+      var article;
+      article = new Content({
+        id: name
+      });
+      return article.fetch({
+        success: function(article) {
+          article = article.toJSON();
+          document.title = article.title;
+          return $("#article").html("<h1>" + article.title + "</h1><p>" + article.body + "</p>");
+        }
+      });
     }
   });
 
   $(document).ready(function() {
-    new Bradbury.Controllers.Documents();
-    Backbone.history.start();
-    return console.log("bradbury started ...");
+    new Bradbury();
+    return Backbone.history.start();
   });
 
 }).call(this);

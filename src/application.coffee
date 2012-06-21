@@ -1,25 +1,19 @@
-Bradbury = 
-  Models: {}
-  Controllers: {}
-  Views: {}
+Content = Backbone.Model.extend 
+  url: -> "/content/#{@id}.json"
 
-Bradbury.Models.Document = Backbone.Model.extend 
-  url: ->
-    # base = 'documents'
-    # if (this.isNew()) 
-    #   return base;
-    # return base + (base.charAt(base.length - 1) == '/' ? '' : '/') + this.name;
-
-console.log Backbone
-
-Bradbury.Controllers.Documents = Backbone.Router.extend
+Bradbury = Backbone.Router.extend
   routes:
       "documents/:name": "show"
 
   show: (name) ->
-    $("#name").text(name)
+    article = new Content
+      id: name
+    article.fetch
+      success: (article) ->
+        article = article.toJSON()
+        document.title = article.title
+        $("#article").html("<h1>#{article.title}</h1><p>#{article.body}</p>")
     
 $(document).ready ->
-  new Bradbury.Controllers.Documents()
+  new Bradbury()
   Backbone.history.start()
-  console.log "bradbury started ..."
