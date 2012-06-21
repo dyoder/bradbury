@@ -1,0 +1,1 @@
+coffee -o web/javascript/ -cw src/
