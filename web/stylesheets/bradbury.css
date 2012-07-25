@@ -1,0 +1,35 @@
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+
+.inset {
+  width: 40%;
+  margin-bottom: 0.5em;
+}
+
+.inset.pull-left {
+  margin-right: 0.5em;
+}
+
+.inset.pull-right {
+  margin-left: 0.5em;
+}
+
+.editor {
+  clear: both;
+}
+
+tr > th {
+  text-align: right;
+  vertical-align: top;
+  padding-right: 0.5em;
+}
+
+section:first-child {
+  margin-top: 0;
+}
+
+section {
+  margin-top: 2em;
+}
